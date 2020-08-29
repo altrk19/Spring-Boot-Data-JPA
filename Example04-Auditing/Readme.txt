@@ -56,10 +56,10 @@ Response:
             "dob": "02/02/2020",
             "dept": "architecture",
             "salary": 15.0,
-            "createDate": null,
-            "lastModifiedDate": null,
-            "createdBy": null,
-            "modifiedBy": null
+            "createDate": "29/08/2020",
+            "lastModifiedDate": "29/08/2020",
+            "createdBy": "Admin",
+            "modifiedBy": "Admin"
         }
     ]
 }

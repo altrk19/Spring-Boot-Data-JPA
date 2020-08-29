@@ -48,6 +48,10 @@ public class EmployeeConverter {
                 employeeResource.setDob(employee.getDob());
                 employeeResource.setDept(employee.getDept());
                 employeeResource.setSalary(employee.getSalary());
+                employeeResource.setCreateDate(employee.getCreateDate());
+                employeeResource.setCreatedBy(employee.getCreatedBy());
+                employeeResource.setLastModifiedDate(employee.getLastModifiedDate());
+                employeeResource.setModifiedBy(employee.getModifiedBy());
 
                 employeeListResource.getEmployees().add(employeeResource);
             }
