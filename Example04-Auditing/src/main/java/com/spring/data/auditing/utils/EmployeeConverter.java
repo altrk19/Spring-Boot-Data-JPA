@@ -1,4 +1,4 @@
-package utils;
+package com.spring.data.auditing.utils;
 
 import com.spring.data.auditing.dto.EmployeeListResource;
 import com.spring.data.auditing.dto.EmployeeResource;

@@ -7,7 +7,7 @@ import com.spring.data.auditing.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import utils.EmployeeConverter;
+import com.spring.data.auditing.utils.EmployeeConverter;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
