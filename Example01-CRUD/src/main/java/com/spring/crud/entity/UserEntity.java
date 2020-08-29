@@ -1,19 +1,20 @@
 package com.spring.crud.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_table")
+@DynamicUpdate
+@NamedQueries(value = {
+        @NamedQuery(name = "UserEntity.getUserBySurnameNamedQuery", query = "SELECT u FROM UserEntity u WHERE u.surname = :surname"),
+})
+@NamedNativeQueries(value = {
+        @NamedNativeQuery(name = "UserEntity.getUserBySurnameNamedNativeQuery", query = "SELECT * FROM user_table WHERE surname = :surname",resultClass=UserEntity.class),
+})
 public class UserEntity implements Serializable {
 
     @Id

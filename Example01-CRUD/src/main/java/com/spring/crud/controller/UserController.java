@@ -2,6 +2,10 @@ package com.spring.crud.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -68,5 +72,70 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/users/surname/{surname}")
+    public ResponseEntity<UserListResource> getUsersBySurname(@PathVariable("surname") @NotNull String surname) {
+        log.debug("Received request to get users by surname");
+        List<UserEntity> userEntities = userService.getUsersBySurname(surname);
+        UserListResource userListResource = UserConverter.toUserListResource(userEntities);
+        log.debug("Request completed to get users by surname");
+        return ResponseEntity.status(HttpStatus.OK).body(userListResource);
+    }
+
+    @GetMapping("/users/name/{name}/surname/{surname}")
+    public ResponseEntity<UserListResource> getUsersByNameAndSurname(@PathVariable("name") @NotNull String name,
+                                                                     @PathVariable("surname") @NotNull String surname) {
+        log.debug("Received request to get users by name and surname");
+        List<UserEntity> userEntities = userService.getUsersByNameAndSurname(name, surname);
+        UserListResource userListResource = UserConverter.toUserListResource(userEntities);
+        log.debug("Request completed to get users by name and surname");
+        return ResponseEntity.status(HttpStatus.OK).body(userListResource);
+    }
+
+    @GetMapping("/users/surname/{surname}/named_query")
+    public ResponseEntity<UserListResource> getUsersBySurnameNamedQuery(@PathVariable("surname") @NotNull String surname) {
+        log.debug("Received request to get users by surname named query");
+        List<UserEntity> userEntities = userService.getUserBySurnameNamedQuery(surname);
+        UserListResource userListResource = UserConverter.toUserListResource(userEntities);
+        log.debug("Request completed to get users by surname named query");
+        return ResponseEntity.status(HttpStatus.OK).body(userListResource);
+    }
+
+    @GetMapping("/users/surname/{surname}/named_native_query")
+    public ResponseEntity<UserListResource> getUsersBySurnameNamedNativeQuery(@PathVariable("surname") @NotNull String surname) {
+        log.debug("Received request to get users by surname named native query");
+        List<UserEntity> userEntities = userService.getUserBySurnameNamedNativeQuery(surname);
+        UserListResource userListResource = UserConverter.toUserListResource(userEntities);
+        log.debug("Request completed to get users by surname named native query");
+        return ResponseEntity.status(HttpStatus.OK).body(userListResource);
+    }
+
+    @GetMapping("/users/surname/{surname}/jpql_query")
+    public ResponseEntity<UserListResource> getUsersBySurnameJpqlQuery(@PathVariable("surname") @NotNull String surname) {
+        log.debug("Received request to get users by surname named jpql query");
+        List<UserEntity> userEntities = userService.getUserBySurnameJpqlQuery(surname);
+        UserListResource userListResource = UserConverter.toUserListResource(userEntities);
+        log.debug("Request completed to get users by surname named jpql query");
+        return ResponseEntity.status(HttpStatus.OK).body(userListResource);
+    }
+
+    @GetMapping("/users/surname/{surname}/native_sql_query")
+    public ResponseEntity<UserListResource> getUsersBySurnameNativeSqlQuery(@PathVariable("surname") @NotNull String surname) {
+        log.debug("Received request to get users by surname named native sql query");
+        List<UserEntity> userEntities = userService.getUserBySurnameNativeSqlQuery(surname);
+        UserListResource userListResource = UserConverter.toUserListResource(userEntities);
+        log.debug("Request completed to get users by surname named native sql query");
+        return ResponseEntity.status(HttpStatus.OK).body(userListResource);
+    }
+
+    @GetMapping("/user/{name}/async")
+    public ResponseEntity<UserResource> getUsersByIdAsync(@PathVariable("name") @NotNull String name)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        log.debug("Received request to get users by name async");
+        CompletableFuture<UserEntity> completableFuture = userService.findByNameAsync(name);
+        UserEntity user = completableFuture.get(20, TimeUnit.SECONDS);
+        UserResource userListResource = UserConverter.toUserResource(user);
+        log.debug("Request completed to get users by name async");
+        return ResponseEntity.status(HttpStatus.OK).body(userListResource);
+    }
 
 }
