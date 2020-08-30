@@ -1,0 +1,16 @@
+Hibernate Envers
+Envers, entity’lerinizi versiyonlamak için kullanılan Hibernate modülüdür.
+
+Projelerimizde bazı durumlarda kayıtlarımızı log’lama gereği duyuyoruz. Bunun sebebi ise önceki kaydın hangi durumda olduğunu bilmek istiyoruz. Bunlar için log tabloları oluşturup hangi durumda(Insert, Update, Delete) değişikliğe uğradığını ve eski halini bu tablolara kaydediyoruz.
+
+Bu sorunu çözmek için Hibernate bizler Envers’ı sunuyor. Loglamak istediğiniz kayıtları belirtmeniz yeterli.
+
+Bazı Envers annotations’ları;
+@Audited: class ve class properities için kullanılabilir. Class için kullandığınızda sahip olduğu bütün field’ları versiyonlayacaktır.
+@NotAudited: eğer bütün field’lara ihtiyacınız yoksa çıkarabilirsiniz.
+@AuditTable: Hibernate default olarak tablo ismini versiyonlanacak entity ismininin sonuna “_AUD” koyarak isimlendirir. Ancak bu annotations ile kendi tablo isminizi verebilirsiniz.
+
+REVTYPE: Yapılan değişikliğin hangi tipte olduğunu belirtir.
+0 Insert
+1 Update
+2 Delete

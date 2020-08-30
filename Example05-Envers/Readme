@@ -1,0 +1,12 @@
+POST-localhost:8080/saveBook
+{
+    "name":"book name 1",
+    "pages":100
+}
+
+
+PUT-localhost:8080/update/1/150
+
+
+
+DELETE-localhost:8080/delete/1
